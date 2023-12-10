@@ -1,6 +1,6 @@
 # LOGIN API SIG/Unilab
 
-Pacote para auxiliar no processo de login utilizando a API de Login no Sig, disponível em https://api.unilab.edu.br
+Pacote para auxiliar no processo de login utilizando a API do Sig/Unilab, disponível em https://api.unilab.edu.br
 
 ## INSTALAÇÃO
 

@@ -2,6 +2,7 @@
     "name": "renpv/login-api-unilab",
     "description": "Pacote para auxiliar na realização de login utilizando a API de login da Unilab",
     "type": "library",
+    "license":"GPL-3.0-or-later",
     "autoload": {
         "psr-4": {
             "Renpv\\LoginApiUnilab\\": "src/"
