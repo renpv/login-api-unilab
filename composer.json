@@ -1,0 +1,19 @@
+{
+    "name": "renpv/login-api-unilab",
+    "description": "Pacote para auxiliar na realização de login utilizando a API de login da Unilab",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Renpv\\LoginApiUnilab\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Renato Paiva",
+            "email": "renatopaivabv@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
