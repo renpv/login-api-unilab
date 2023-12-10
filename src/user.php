@@ -5,6 +5,7 @@ namespace Renpv\LoginApiUnilab;
 class User
 {
     private $dataUser;
+    public $error = false;
 
     public function __construct($dataUser)
     {
@@ -75,5 +76,33 @@ class User
             }
         }
         return false;
+    }
+
+    public function __toString()
+    {
+        //Definindo as mensagens básicas
+        $definition = [
+            "Nome completo do usuário:" => $this->getName(),
+            "Login do usuário:" => $this->getUserLogin(),
+            "E-mail do usuário:" => $this->getEmail(),
+            "CPF do usuário:" => $this->getCpf(),
+            "ID do usuário no Sig:" => $this->getIdUser(),
+            "ID da pessoa no Sig:" => $this->getIdPeople(),
+            "É docente ativo?" => ($this->isTeacherActive() ? 'Sim' : 'Não'),
+            "É técnico ativo?" => ($this->isTechnicalActive() ? 'Sim' : 'Não'),
+            "É aluno ativo?" => ($this->isScholarshipActive() ? 'Sim' : 'Não'),
+        ];
+
+        //Verificando se o código está sendo chamado no terminal ou navegador
+        $break = (defined('STDIN') ? "\n" : "<br>");
+
+        //Montando a saída
+        $output = "";
+        foreach ($definition as $key => $value) {
+            $output .= sprintf("${key} %s ${break}", $value);
+        }
+
+        //Retorno
+        return $output;
     }
 }
