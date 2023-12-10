@@ -35,7 +35,6 @@ class Login
 
         if (isset($token->access_token)) {
             $bond = $this->getBond($token->access_token);
-            var_dump($bond);
             return new User($bond);
         }
         return false;
@@ -113,6 +112,10 @@ class Login
         $message['message'] = 'Erro desconhecido';
 
         preg_match('/`(\d{3}) /', $stringError, $matches);
+
+        if ($matches[1] == '422') {
+            $message['message'] = "Você deve informar uma senha";
+        }
 
         if ($matches[1] == '401') {
             $message['message'] = "Usuário ou senha incorretos";
