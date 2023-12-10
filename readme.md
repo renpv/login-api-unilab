@@ -48,11 +48,17 @@ $user->getCpf();
 $user->getIdUser();
 //ID da pessoa no Sig
 $user->getIdPeople();
+//Unidade de vínculo do usuário
+$user->getUnity();
 //É docente ativo
 $user->isTeacherActive();
 //É técnico ativo
 $user->isTechnicalActive();
+//É terceirizado
+$user->isOutsourced();
 //É aluno ativo
 $user->isScholarshipActive();
+//Está ativo no sistema
+$user->isActiveInSystem();
 
 ```

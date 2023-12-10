@@ -42,6 +42,14 @@ class User
         return $this->dataUser[0]->login;
     }
 
+    /**
+     * Função que retorna qual a unidade o usuário está vinculado
+     */
+    public function getUnity()
+    {
+        return $this->dataUser[0]->sigla_unidade;
+    }
+
     public function isTeacherActive()
     {
         foreach ($this->dataUser as $user) {
@@ -78,6 +86,31 @@ class User
         return false;
     }
 
+    /**
+     * Método que retorna se o usuário é do tipo terceirizado
+     */
+    public function isOutsourced()
+    {
+        foreach ($this->dataUser as $user) {
+            if ($user->id_tipo_usuario == 12) {
+                //id_tipo_usuario precisa ser 12 (Terceirizado)
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isActiveInSystem()
+    {
+        foreach ($this->dataUser as $user) {
+            if ($user->status_sistema == 1) {
+                //id_status_sistema precisa ser 1 (Ativo)
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function __toString()
     {
         //Definindo as mensagens básicas
@@ -88,9 +121,12 @@ class User
             "CPF do usuário:" => $this->getCpf(),
             "ID do usuário no Sig:" => $this->getIdUser(),
             "ID da pessoa no Sig:" => $this->getIdPeople(),
+            "Unidade de vínculo do usuário:" => $this->getUnity(),
             "É docente ativo?" => ($this->isTeacherActive() ? 'Sim' : 'Não'),
             "É técnico ativo?" => ($this->isTechnicalActive() ? 'Sim' : 'Não'),
+            "É terceirizado?" => ($this->isOutsourced() ? 'Sim' : 'Não'),
             "É aluno ativo?" => ($this->isScholarshipActive() ? 'Sim' : 'Não'),
+            "Está ativo no sistema?" => ($this->isActiveInSystem() ? 'Sim' : 'Não'),
         ];
 
         //Verificando se o código está sendo chamado no terminal ou navegador
