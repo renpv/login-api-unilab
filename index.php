@@ -6,7 +6,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 $login = new Login();
 
-$user = $login->attempt('renatopaiva', 'Mi2906');
+$user = $login->attempt('renatopaiva', '');
 var_dump($user);
 
 
