@@ -4,6 +4,7 @@ namespace Renpv\LoginApiUnilab;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+use stdClass;
 
 class Login
 {
@@ -18,19 +19,36 @@ class Login
         ]);
     }
 
+    /**
+     * Função que controla as tentativas de login
+     * @param string $user
+     * @param string $pass
+     * 
+     * @return stdClass|User|boolean stdClass quando houver algum erro, string quando o usuário for validado
+     */
     public function attempt(string $user, string $pass)
     {
         $token = $this->authenticate($user, $pass);
+
         if (isset($token->error))
-            return $token;
+            return $token; //Erro
 
         if (isset($token->access_token)) {
             $bond = $this->getBond($token->access_token);
             var_dump($bond);
+            return new User($bond);
         }
+        return false;
     }
 
-    private function authenticate($user, $pass)
+    /**
+     * Função que retorna os dados do usuário
+     * @param string $user
+     * @param string $pass
+     * 
+     * @return stdClass|string stdClass quando houver algum erro, string quando o usuário for validado
+     */
+    private function authenticate(string $user, string $pass)
     {
         $request = new Request('POST', 'authenticate');
 
@@ -58,6 +76,12 @@ class Login
         }
     }
 
+    /**
+     * Função que retorna os dados do usuário
+     * @param string $token
+     * 
+     * @return stdClass|string stdClass quando houver algum erro, String quando o login tiver sucesso
+     */
     private function getBond(string $token)
     {
         $headers = [
@@ -76,7 +100,14 @@ class Login
             return $this->getErrorMessage($th->getMessage());
         }
     }
-    private function getErrorMessage($stringError)
+
+    /**
+     * Função que retorna o erro capturado na tentativa de login na API
+     * @param string $stringError
+     * 
+     * @return stdClass {error: boolean, message: string}
+     */
+    private function getErrorMessage(string $stringError): stdClass
     {
         $message['error'] = true;
         $message['message'] = 'Erro desconhecido';
@@ -87,6 +118,8 @@ class Login
             $message['message'] = "Usuário ou senha incorretos";
         }
 
-        return (object) $message;
+        $t = (object) $message;
+
+        return $t;
     }
 }
